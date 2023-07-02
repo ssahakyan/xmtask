@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="XM functional automation" parallel="tests" thread-count="1">
+
+    <listeners>
+        <listener class-name="functional.listeners.AnnotationTransformer"/>
+        <listener class-name="functional.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Chrome">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="resolution" value="MAXIMUM"/>
+        <classes>
+            <class name="com.xm.ui.FunctionalTest"/>
+        </classes>
+    </test>
+    <test name="Chrome">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="resolution" value="1024x768"/>
+        <classes>
+            <class name="com.xm.ui.FunctionalTest"/>
+        </classes>
+    </test>
+    <test name="Firefox 800x600">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="resolution" value="800x600"/>
+        <classes>
+            <class name="com.xm.ui.FunctionalTest"/>
+        </classes>
+    </test>
+</suite>

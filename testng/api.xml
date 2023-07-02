@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="XM functional automation" parallel="tests" thread-count="1">
+
+    <listeners>
+        <listener class-name="functional.listeners.AnnotationTransformer"/>
+        <listener class-name="functional.listeners.TestListener"/>
+    </listeners>
+
+    <test name="api">
+        <classes>
+            <class name="com.xm.api.ApiTest"/>
+        </classes>
+    </test>
+</suite>

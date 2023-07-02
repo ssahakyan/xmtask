@@ -1,0 +1,28 @@
+pipeline {
+    agent { label 'master' }
+    tools { maven 'maven-latest' }
+    options {
+        timestamps()
+    }
+    parameters {
+        string name: 'base_url', defaultValue: 'https://xm.com', description: 'URL'
+        choice choices: ['CHROME', 'SAFARI', 'FIREFOX'], description: 'Resolution', name: 'browser'
+        choice choices: ['MAXIMUM', '800x600', '1024x768'], description: 'Resolution', name: 'resolution'
+        choice choices: ['testng/all.xml', 'testng/api.xml', 'testng/ui.xml'], description: 'TestNG XML file', name: 'testng_xml_file'
+        string name: 'api_url', defaultValue: 'https://swapi.dev/api', description: 'API url'
+        string name: 'element_wait_timeout', defaultValue: '20', description: 'Explicit wait'
+        string name: 'retry_count', defaultValue: '1', description: 'Retry Count'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -DskipTests clean verify'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn failsafe:integration-test -Dbase_url=${base_url} -Dbrowser=${browser} -Dresolution=${resolution} -Dapi_url=${api_url} -Delement_wait_timeout=${element_wait_timeout} -Dretry_count=${retry_count} -Dtestng_xml_file=${testng_xml_file}'
+            }
+        }
+    }
+}
